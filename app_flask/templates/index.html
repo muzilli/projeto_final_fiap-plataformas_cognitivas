@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12" >
+
+    <div class="alert alert-primary" role="alert">
+        <h4>
+    Para saber se a empresa terá lucro durante o período, por favor selecione o dia da semana, e insira os dados de temperatura e preciptação
+        </h4>
+        </div>
+
+        </div>
+
+
+
+        <div class="col-12">
+
+<div class="col-12">
+
+
+
+
+<form id="form">
+    <div class="form-group">
+    <div class="form-inline">
+                <div class="col-auto my-1">
+                <label class="mr-sm-2 sr-only" for="dia_semana">Dias da Semana</label>
+                <select id="dia_semana" class="custom-select mr-sm-2">
+                    <option value="0">Domingo</option>
+                    <option value="0">Segunda</option>
+                    <option value="0">Terça</option>
+                    <option value="0">Quarta</option>
+                    <option value="0">Quinta</option>
+                    <option value="0">Sexta</option>
+                    <option value="0">Sabado</option>
+                </select>
+            </div>
+            <div class=" my-1">
+                <label class="mr-sm-2 sr-only" for="prec">Dias da Semana</label>
+              <input type="text" class="form-control" placeholder="Preciptação" id="prec">
+            </div>
+            <div class="col-auto my-1">
+                <label class="mr-sm-2 sr-only" for="temp">Dias da Semana</label>
+                <input type="text" id="temp" class="form-control" placeholder="Temperatura máxima">
+            </div>
+<div class="col-auto my-1">
+    <input type="submit" value="Enviar" class="btn btn-primary">
+</div>
+
+    </div>
+    </div>
+</form>
+</div>
+
+        </div>
+
+        <div class="col-12" style="display:none" id="lucro_container">
+            <div class="alert alert-success" role="alert">
+            O valor de lucro previsto será de  <strong id="lucro"></strong>
+            </div>
+        </div>
+    </div>
+<div class="row">
+
+<div class="row">
+<h4>
+    <div class="alert alert-primary" role="alert">
+    Para saber sobre vinhos por gentileza fale com o nosso chatbot de perguntas e respostas abaixo
+    </div>
+</h4>
+</div>
+    <div class="row">
+        <div class="col-3">&nbsp;</div>
+        <div class="col-6"><iframe src='https://webchat.botframework.com/embed/QnA_VinhoBot?s=JprI2v6QAho.cwA._XA.IDKqpuHy89XFwyKaNq0G5CNu_zQl4eiVyVqUF9QZaek'  style='min-width: 500px; width: 100%; min-height: 600px;'></iframe></div>
+  <div class="col-3">&nbsp;</div>
+
+
+    </div>
+    </div>
+</div>
+<script>
+$( "#form" ).submit(function( event ) {
+    dia_semana = $('#dia_semana').val()
+    temp = $('#temp').val()
+    prec = $('#prec').val()
+
+    url = "/predict?model=lr_model&temp_max=" + temp + "&precipt=" + prec + "&weekend=" + dia_semana
+
+  $.ajax({
+    url: url
+  })
+  .done(function( data ) {
+    dataJson = $.parseJSON(data)
+    $('#lucro').html("R$ " + dataJson.value.toFixed(2))
+    $('#lucro_container').show()
+  });
+  event.preventDefault();
+});
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+===========================
+Build docker
+===========================
+
+
+MBP-de-Rafael-2:app_flask rafaelstomaz$ docker build -t my_docker_flask:latest .
+Sending build context to Docker daemon  269.3kB
+Step 1/7 : FROM python:3
+ ---> a9d071760c82
+Step 2/7 : COPY . /app
+ ---> 988293f39c7e
+Step 3/7 : WORKDIR /app
+ ---> Running in cb3371e9dace
+Removing intermediate container cb3371e9dace
+ ---> 5ca3ba49a681
+Step 4/7 : RUN pip install --upgrade pip
+ ---> Running in 159312755aba
+Collecting pip
+  Downloading https://files.pythonhosted.org/packages/c2/d7/90f34cb0d83a6c5631cf71dfe64cc1054598c843a92b400e55675cc2ac37/pip-18.1-py2.py3-none-any.whl (1.3MB)
+Installing collected packages: pip
+  Found existing installation: pip 18.0
+    Uninstalling pip-18.0:
+      Successfully uninstalled pip-18.0
+Successfully installed pip-18.1
+Removing intermediate container 159312755aba
+ ---> 73dda4ef0c86
+Step 5/7 : RUN pip install -r requirements.txt
+ ---> Running in fe867e782246
+Collecting flask (from -r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/7f/e7/08578774ed4536d3242b14dacb4696386634607af824ea997202cd0edb4b/Flask-1.0.2-py2.py3-none-any.whl (91kB)
+Collecting flask_restful (from -r requirements.txt (line 2))
+  Downloading https://files.pythonhosted.org/packages/47/08/89cf8594735392cd71752f7cf159fa63765eac3e11b0da4324cdfeaea137/Flask_RESTful-0.3.6-py2.py3-none-any.whl
+Collecting numpy (from -r requirements.txt (line 3))
+  Downloading https://files.pythonhosted.org/packages/38/39/f73e104d44f19a6203e786d5204532e214443ea2954917b27f3229e7639b/numpy-1.15.4-cp37-cp37m-manylinux1_x86_64.whl (13.8MB)
+Collecting scipy (from -r requirements.txt (line 4))
+  Downloading https://files.pythonhosted.org/packages/40/de/0c22c6754370ba6b1fa8e53bd6e514d4a41a181125d405a501c215cbdbd6/scipy-1.1.0-cp37-cp37m-manylinux1_x86_64.whl (31.2MB)
+Collecting scikit-learn (from -r requirements.txt (line 5))
+  Downloading https://files.pythonhosted.org/packages/b0/3a/0802b78f697ae04ba06f49d0ebc6e872f2c470687c3e61ad8ef523e125c3/scikit_learn-0.20.1-cp37-cp37m-manylinux1_x86_64.whl (5.4MB)
+Collecting Jinja2>=2.10 (from flask->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/7f/ff/ae64bacdfc95f27a016a7bed8e8686763ba4d277a78ca76f32659220a731/Jinja2-2.10-py2.py3-none-any.whl (126kB)
+Collecting itsdangerous>=0.24 (from flask->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/76/ae/44b03b253d6fade317f32c24d100b3b35c2239807046a4c953c7b89fa49e/itsdangerous-1.1.0-py2.py3-none-any.whl
+Collecting Werkzeug>=0.14 (from flask->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/20/c4/12e3e56473e52375aa29c4764e70d1b8f3efa6682bef8d0aae04fe335243/Werkzeug-0.14.1-py2.py3-none-any.whl (322kB)
+Collecting click>=5.1 (from flask->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/fa/37/45185cb5abbc30d7257104c434fe0b07e5a195a6847506c074527aa599ec/Click-7.0-py2.py3-none-any.whl (81kB)
+Collecting aniso8601>=0.82 (from flask_restful->-r requirements.txt (line 2))
+  Downloading https://files.pythonhosted.org/packages/69/9b/f2ae61c0c90181b62e15ca09d283d2aab42c7c2c3bbd7c548dd0cfd8bf3e/aniso8601-4.0.1-py2.py3-none-any.whl
+Collecting six>=1.3.0 (from flask_restful->-r requirements.txt (line 2))
+  Downloading https://files.pythonhosted.org/packages/67/4b/141a581104b1f6397bfa78ac9d43d8ad29a7ca43ea90a2d863fe3056e86a/six-1.11.0-py2.py3-none-any.whl
+Collecting pytz (from flask_restful->-r requirements.txt (line 2))
+  Downloading https://files.pythonhosted.org/packages/f8/0e/2365ddc010afb3d79147f1dd544e5ee24bf4ece58ab99b16fbb465ce6dc0/pytz-2018.7-py2.py3-none-any.whl (506kB)
+Collecting MarkupSafe>=0.23 (from Jinja2>=2.10->flask->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/e4/c4/adcc2d6f2ac2146cc04e076f14f1006c1de8e1e747fa067668b6573000b8/MarkupSafe-1.1.0-cp37-cp37m-manylinux1_x86_64.whl
+Installing collected packages: MarkupSafe, Jinja2, itsdangerous, Werkzeug, click, flask, aniso8601, six, pytz, flask-restful, numpy, scipy, scikit-learn
+The command '/bin/sh -c pip install -r requirements.txt' returned a non-zero code: 137
+
+
+
+===========================
+Build Rodar o docker local
+===========================
+
+MBP-de-Rafael-2:app_flask rafaelstomaz$ docker run -d -p 80:80 my_docker_flask:latest
+
+
+===========================
+Verificar se está rodando na porta
+===========================
+
+MBP-de-Rafael-2:app_flask rafaelstomaz$ docker ps
+CONTAINER ID        IMAGE                    COMMAND             CREATED             STATUS              PORTS                    NAMES
+b25f704acd9b        my_docker_flask:latest   "python app.py"     2 minutes ago       Up 2 minutes        0.0.0.0:8080->8080/tcp   elated_williamson
+
+
+===========================
+Verificar se todas as pastas estão no docker
+===========================
+
+MBP-de-Rafael-2:app_flask rafaelstomaz$ docker exec -it b25f704acd9b bash
+root@b25f704acd9b:/app# ls
+Dockerfile  api request.ipynb  app.py  data  machine learning workflow.ipynb  models  requirements.txt	templates
+
+
+
+===========================
+Publicar no Docker HUB (https://hub.docker.com/)
+===========================
+===========================
+Autenticar no dockerhub
+===========================
+$ docker login -u rafaelstomaz
+Password:
+Login Succeeded
+
+===========================
+Criar tag com o nome do usuario do DockerHub 
+===========================
+
+MBP-de-Rafael-2:app_flask rafaelstomaz$ docker tag my_docker_flask rafaelstomaz/my_docker_flask
+MBP-de-Rafael-2:app_flask rafaelstomaz$ docker images
+REPOSITORY                       TAG                 IMAGE ID            CREATED             SIZE
+my_docker_flask                  latest              231524aa1ba0        6 minutes ago       1.19GB
+rafaelstomaz/my_docker_flask     latest              231524aa1ba0        6 minutes ago       1.19GB
+
+
+===========================
+Publicar no docker hub
+===========================
+
+MBP-de-Rafael-2:app_flask rafaelstomaz$ docker push rafaelstomaz/my_docker_flask
+The push refers to repository [docker.io/rafaelstomaz/my_docker_flask]
+a6b9823c80ef: Pushed 
+88f237a45e37: Pushed 
+a293df090347: Pushed 
+c9701db5aa5b: Layer already exists 
+590ee04d598a: Layer already exists 
+a62b97ef6d9f: Layer already exists 
+be59bd55864a: Layer already exists 
+a19cb627cc73: Layer already exists 
+ab016c9ea8f8: Layer already exists 
+2eb1c9bfc5ea: Layer already exists 
+0b703c74a09c: Layer already exists 
+b28ef0b6fef8: Layer already exists 
+latest: digest: sha256:d526512c622470f4867e833449ce9e40032f2dd8c0fd22fafa690f7372b592fa size: 2852
